@@ -24,23 +24,6 @@
         state: started
         enabled: yes
 
-    - name: Remove anonymous users.
-      mysql_user:
-        name: ''
-        host_all: yes
-        state: absent
-
-    - name: Remove test database.
-      mysql_db:
-        name: test
-        state: absent
-
-    - name: Remove root remote connection.
-      mysql_user:
-        name: root
-        host_all: yes
-        state: absent
-
     - name: Set root password.
       mysql_user:
         name: root
