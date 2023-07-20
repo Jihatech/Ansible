@@ -25,15 +25,6 @@
         - python3-pip
       state: present
 
-  - name: Set root password
-    community.mysql.mysql_user:
-      login_user: root
-      login_password: ''
-      user: root
-      password: T001k1t_2022
-      priv: '*.*:ALL,GRANT'
-      host_all: yes
-
   - name: Create Database
     mysql_db:
       name: SNOW
