@@ -4,7 +4,7 @@
   tasks:
   - name: Use /usr/bin/python3 as default interpreter
     set_fact:
-    ansible_python_interpreter: /usr/bin/python3
+      ansible_python_interpreter: /usr/bin/python3
 
   - name: Install MariaDB
     yum:
