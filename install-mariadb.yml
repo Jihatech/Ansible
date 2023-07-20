@@ -3,4 +3,4 @@
   hosts: SERVERBDD
   gather_facts: no
   roles:
-    - role: mariadb
+    - roles: mariadb
