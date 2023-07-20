@@ -14,13 +14,6 @@
         priv: 'my_database.*:ALL'
 
   tasks:
-    - name: Ensure MariaDB packages are installed
-      yum:
-        name:
-          - mariadb-server
-          - python3-PyMySQL
-        state: present
-
     - name: Ensure MariaDB service is enabled and running
       systemd:
         name: mariadb
