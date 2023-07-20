@@ -40,6 +40,11 @@
       login_user: root
       login_password: T001k1t_2022
       state: present
+
+  - name: Install python3-firewall
+    yum:
+      name: python3-firewall
+      state: present
       
   - name: Install firewalld
     yum:
