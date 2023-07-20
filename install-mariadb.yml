@@ -13,3 +13,36 @@
       name: mariadb
       state: started
       enabled: yes
+      
+  - name: Set root password
+    community.mysql.mysql_user:
+      login_user: root
+      login_password: ''
+      user: root
+      password: T001k1t_2022
+      priv: '*.*:ALL,GRANT'
+      host_all: yes
+
+  - name: Create Database
+    mysql_db:
+      name: SNOW
+      login_user: root
+      login_password: T001k1t_2022
+      state: present
+    when:
+     - create_database
+     - database is defined
+
+  - name: Create mysql User defined database
+    mysql_user:
+      name: snowuser
+      password: snowuser
+      priv: '*.*:ALL,GRANT'
+      login_user: root
+      login_password: T001k1t_2022
+      state: present
+    when:
+      - create_database
+      - database is defined
+      - create_db_user
+      - db_user_name is defined
