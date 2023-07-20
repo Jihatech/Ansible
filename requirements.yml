@@ -1,6 +1,9 @@
 ---
-- src: geerlingguy.mysql
-  version: 3.3.0
-  name: mariadb
+collections:
+  - name: community.general
+  - name: community.mysql
+  - name: community.network
 
-- name: community.mysql
+roles:
+  - name: geerlingguy.mysql
+    version: 3.3.0
