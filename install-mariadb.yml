@@ -41,11 +41,6 @@
       login_password: T001k1t_2022
       state: present
 
-  - name: Install python-firewall
-    yum:
-      name: python-firewall
-      state: present
-
   - name: Install firewalld
     yum:
       name: firewalld
