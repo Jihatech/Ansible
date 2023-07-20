@@ -2,3 +2,5 @@
 - src: geerlingguy.mysql
   version: 3.3.0
   name: mariadb
+
+- name: community.mysql

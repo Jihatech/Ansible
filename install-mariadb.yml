@@ -1,6 +1,8 @@
 ---
 - hosts: SERVERBDD
   become: yes
+  collections:
+    - community.mysql
   vars:
     mysql_root_password: 'my_secure_password'
     mysql_databases:
