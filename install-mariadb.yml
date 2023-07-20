@@ -1,6 +1,71 @@
 ---
-- name: "Installation MariaDB"
-  hosts: SERVERBDD
-  gather_facts: no
-  roles:
-    - mariadb
+- hosts: SERVERBDD
+  become: yes
+  vars:
+    mysql_root_password: 'my_secure_password'
+    mysql_databases:
+      - name: my_database
+    mysql_users:
+      - name: my_user
+        password: 'my_secure_password'
+        priv: 'my_database.*:ALL'
+
+  tasks:
+    - name: Ensure MariaDB packages are installed.
+      yum:
+        name:
+          - mariadb-server
+          - python3-PyMySQL
+        state: present
+
+    - name: Ensure MariaDB service is enabled and running.
+      systemd:
+        name: mariadb
+        state: started
+        enabled: yes
+
+    - name: Remove anonymous users.
+      mysql_user:
+        name: ''
+        host_all: yes
+        state: absent
+
+    - name: Remove test database.
+      mysql_db:
+        name: test
+        state: absent
+
+    - name: Remove root remote connection.
+      mysql_user:
+        name: root
+        host_all: yes
+        state: absent
+
+    - name: Set root password.
+      mysql_user:
+        name: root
+        password: "{{ mysql_root_password }}"
+        priv: '*.*:ALL,GRANT'
+        login_unix_socket: /var/lib/mysql/mysql.sock
+
+    - name: Create a new database with name '{{ item.name }}'
+      mysql_db:
+        name: "{{ item.name }}"
+        state: present
+      loop: "{{ mysql_databases }}"
+      notify: restart mysql
+
+    - name: Create user '{{ item.name }}' and grant privileges on '{{ item.priv }}'.
+      mysql_user:
+        name: "{{ item.name }}"
+        password: "{{ item.password }}"
+        priv: "{{ item.priv }}"
+        state: present
+      loop: "{{ mysql_users }}"
+      notify: restart mysql
+
+  handlers:
+    - name: restart mysql
+      systemd:
+        name: mariadb
+        state: restarted
