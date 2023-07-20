@@ -1,50 +1,9 @@
 ---
 - hosts: SERVERBDD
-  gather_facts: no
-  become: yes
-  collections:
-    - community.mysql
-  vars:
-    mysql_root_password: 'my_secure_password'
-    mysql_databases:
-      - name: my_database
-    mysql_users:
-      - name: my_user
-        password: 'my_secure_password'
-        priv: 'my_database.*:ALL'
-
   tasks:
-    - name: Ensure MariaDB service is enabled and running
-      systemd:
-        name: mariadb
-        state: started
-        enabled: yes
-
-    - name: Set root password
-      mysql_user:
-        name: root
-        password: "{{ mysql_root_password }}"
-        priv: '*.*:ALL,GRANT'
-        login_unix_socket: /var/lib/mysql/mysql.sock
-
-    - name: Create a new database with name '{{ item.name }}'
-      mysql_db:
-        name: "{{ item.name }}"
-        state: present
-      loop: "{{ mysql_databases }}"
-      notify: restart mysql
-
-    - name: Create user '{{ item.name }}' and grant privileges on '{{ item.priv }}'
-      mysql_user:
-        name: "{{ item.name }}"
-        password: "{{ item.password }}"
-        priv: "{{ item.priv }}"
-        state: present
-      loop: "{{ mysql_users }}"
-      notify: restart mysql
-
-  handlers:
-    - name: restart mysql
-      systemd:
-        name: mariadb
-        state: restarted
+  - name: Install MariaDB repository
+    apt_repository: repo='deb http://ftp.igh.cnrs.fr/pub/mariadb/repo/10.0/ubuntu trusty main' state=present
+  - name: Add repository key to the system
+    apt_key: keyserver=keyserver.ubuntu.com id=0xcbcb082a1bb943db
+  - name: Install MariaDB Server
+    apt: name=mariadb-server state=latest update_cache=yes
