@@ -13,7 +13,7 @@
       name: mariadb
       state: started
       enabled: yes
-      
+
   - name: Install python3 and PyMySQL
     yum:
       name:
@@ -21,10 +21,12 @@
         - python3-pip
       state: present
 
-  - name: Install PyMySQL Python package
+  - name: Install required Python packages
     pip:
-      name: PyMySQL
-      state: present
+      name: 
+      - setuptools
+      - PyMySQL
+    state: present
 
   - name: Set root password
     community.mysql.mysql_user:
