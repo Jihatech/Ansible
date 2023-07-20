@@ -11,14 +11,14 @@
         priv: 'my_database.*:ALL'
 
   tasks:
-    - name: Ensure MariaDB packages are installed.
+    - name: Ensure MariaDB packages are installed
       yum:
         name:
           - mariadb-server
           - python3-PyMySQL
         state: present
 
-    - name: Ensure MariaDB service is enabled and running.
+    - name: Ensure MariaDB service is enabled and running
       systemd:
         name: mariadb
         state: started
@@ -38,7 +38,7 @@
       loop: "{{ mysql_databases }}"
       notify: restart mysql
 
-    - name: Create user '{{ item.name }}' and grant privileges on '{{ item.priv }}'.
+    - name: Create user '{{ item.name }}' and grant privileges on '{{ item.priv }}'
       mysql_user:
         name: "{{ item.name }}"
         password: "{{ item.password }}"
