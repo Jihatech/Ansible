@@ -1,6 +1,0 @@
----
-- name: "Installation MariaDB"
-  hosts: SERVERBDD
-  gather_facts: no
-  roles:
-    - mariadb
