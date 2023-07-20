@@ -36,12 +36,7 @@
     mysql_user:
       name: snowuser
       password: snowuser
-      priv: '*.*:ALL,GRANT'
+      priv: 'SNOW.*:ALL,GRANT'
       login_user: root
       login_password: T001k1t_2022
       state: present
-    when:
-      - create_database
-      - database is defined
-      - create_db_user
-      - db_user_name is defined
