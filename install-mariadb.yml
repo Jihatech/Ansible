@@ -1,5 +1,6 @@
 ---
 - hosts: SERVERBDD
+  gather_facts: no
   become: yes
   collections:
     - community.mysql
