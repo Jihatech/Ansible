@@ -24,7 +24,7 @@
         state: started
         enabled: yes
 
-    - name: Set root password.
+    - name: Set root password
       mysql_user:
         name: root
         password: "{{ mysql_root_password }}"
