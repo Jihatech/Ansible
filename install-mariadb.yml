@@ -40,9 +40,6 @@
       login_user: root
       login_password: T001k1t_2022
       state: present
-    when:
-     - create_database
-     - database is defined
 
   - name: Create mysql User defined database
     mysql_user:
