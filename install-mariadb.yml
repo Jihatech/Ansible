@@ -49,6 +49,6 @@
       state: present
 
   - name: Restart MariaDB service
-  service:
-    name: mariadb
-    state: restarted
+    service:
+      name: mariadb
+      state: restarted
