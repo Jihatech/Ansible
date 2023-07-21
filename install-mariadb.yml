@@ -47,3 +47,8 @@
       insertafter: '\[mysqld\]'
       line: 'port = 3306'
       state: present
+
+  - name: Restart MariaDB service
+  service:
+    name: mariadb
+    state: restarted
