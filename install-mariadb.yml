@@ -41,20 +41,9 @@
       login_password: T001k1t_2022
       state: present
 
-  - name: Install firewalld
-    yum:
-      name: firewalld
-      state: latest
-
-  - name: Start firewalld
-    service:
-      name: firewalld
-      state: started
-      enabled: yes
-
-  - name: Open MariaDB port in firewall
-    firewalld:
-      port: 3306/tcp
-      permanent: yes
-      state: enabled
-      immediate: yes
+  - name: Ensure MariaDB listens on the correct port
+    lineinfile:
+      path: /etc/my.cnf.d/server.cnf
+      insertafter: '\[mysqld\]'
+      line: 'port = 3306'
+      state: present
