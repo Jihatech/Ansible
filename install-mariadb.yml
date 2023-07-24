@@ -52,3 +52,18 @@
     service:
       name: mariadb
       state: restarted
+  
+  - name: Install firewalld
+    yum:
+      name: firewalld
+      state: present
+  - name: Start firewalld
+    service:
+      name: firewalld
+      state: started
+  - name: Open port 4000/tcp
+    firewalld:
+       port: 4000/tcp
+       permanent: yes
+       state: enabled
+       immediate: yes
