@@ -61,9 +61,9 @@
     service:
       name: firewalld
       state: started
-  - name: Open port 4000/tcp
+  - name: Open port 3306/tcp
     firewalld:
-       port: 4000/tcp
+       port: 3306/tcp
        permanent: yes
        state: enabled
        immediate: yes
