@@ -1,0 +1,5 @@
+---
+- import_playbook: install_python_dependencies.yml
+- import_playbook: install_mariadb.yml
+- import_playbook: configure_mariadb.yml
+- import_playbook: configure_firewall.yml
