@@ -6,11 +6,13 @@
       yum:
         name: firewalld
         state: latest
+
     - name: Start firewalld service
       service:
         name: firewalld
         state: started
         enabled: yes
+
     - name: Open MariaDB port in firewall
       firewalld:
         port: 3306/tcp

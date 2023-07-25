@@ -2,17 +2,18 @@
 - hosts: SERVERBDD
   become: yes
   tasks:
-    - name: Create Database
-      mysql_db:
-        name: SNOW
-        login_user: root
-        login_password:
-        state: present
-    - name: Create mysql User defined database
-      mysql_user:
-        name: snowuser
-        password: snowuser
-        priv: "SNOW.*:ALL,GRANT"
-        login_user: root
-        login_password:
-        state: present
+      - name: Create Database
+        mysql_db:
+          name: SNOW
+          login_user: root
+          login_password:
+          state: present
+
+      - name: Create mysql User defined database
+        mysql_user:
+          name: snowuser
+          password: snowuser
+          priv: "SNOW.*:ALL,GRANT"
+          login_user: root
+          login_password:
+          state: present
