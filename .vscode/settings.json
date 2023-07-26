@@ -1,0 +1,10 @@
+{
+    "yaml.schemas": {
+        "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook": [
+            "file:///c%3A/Users/jilya/OneDrive/Documents/GitHub/Ansible/Ansible/tasks/first_system_config.yml",
+            "file:///c%3A/Users/jilya/OneDrive/Documents/GitHub/Ansible/Ansible/tasks/Config_Post_Install.yml",
+            "file:///c%3A/Users/jilya/OneDrive/Documents/GitHub/Ansible/Ansible/tasks/configure_firewall.yml",
+            "file:///c%3A/Users/jilya/OneDrive/Documents/GitHub/Ansible/Ansible/tasks/install_mariadb.yml"
+        ]
+    }
+}
