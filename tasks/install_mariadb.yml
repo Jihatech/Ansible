@@ -27,7 +27,7 @@
 
   - name: Install MariaDB server from local repository
     yum:
-      name: MariaDB-server
+      name: mariadb
       state: present
 
   - name: Start MariaDB service
