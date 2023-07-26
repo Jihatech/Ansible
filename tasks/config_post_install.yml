@@ -8,4 +8,22 @@
   tasks:
   - name: Create a new user
     command: mysql -u root -p"{{ root_password }}" -e "CREATE USER 'servicenow'@'localhost' IDENTIFIED BY 'abc123'; GRANT ALL PRIVILEGES ON *.* TO 'servicenow'@'localhost'; FLUSH PRIVILEGES;"
-...
+
+  - name: Create database
+    mysql_db:
+      name: SNDB
+      state: present
+    become: yes
+    become_user: root
+
+- name: Create user
+  mysql_user:
+      name: servicenow
+      password: abc123
+      priv: 'SNDB.*:ALL'
+      host: '{{ item }}'
+      state: present
+  become: yes
+  become_user: root
+  loop: 
+    - 10.1.0.2
