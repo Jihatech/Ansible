@@ -1,0 +1,11 @@
+---
+- name: Post-installation configuration
+  hosts: SERVERBDD
+  become: yes
+  vars:
+    root_password: 'mariadb' # to be updated with real password
+
+  tasks:
+  - name: Create a new user
+    command: mysql -u root -p"{{ root_password }}" -e "CREATE USER 'servicenow'@'localhost' IDENTIFIED BY 'abc123'; GRANT ALL PRIVILEGES ON *.* TO 'servicenow'@'localhost'; FLUSH PRIVILEGES;"
+...
