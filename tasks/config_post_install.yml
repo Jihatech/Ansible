@@ -3,16 +3,16 @@
   hosts: SERVERBDD
   become: yes
   vars:
-    root_password: 'mariadb' # to be updated with real password
-    new_user: 'servicenow'
-    new_password: 'abc123'
-    new_database: 'SNDB'
-    app_server_ips: ['10.1.0.2'] # to be updated with real IPs
+    root_password: "mariadb" # to be updated with real password
+    new_user: "servicenow"
+    new_password: "abc123"
+    new_database: "SNDB"
+    app_server_ips: ["10.1.0.2"] # to be updated with real IPs
 
   tasks:
-  - name: Create a new database
-    command: mysql -u root -p"{{ root_password }}" -e "CREATE DATABASE {{ new_database }};"
+    - name: Create a new database
+      command: mysql -u root -p"{{ root_password }}" -e "CREATE DATABASE {{ new_database }};"
 
-  - name: Create a new user with access to the new database from each application server IP
-    command: mysql -u root -p"{{ root_password }}" -e "CREATE USER '{{ new_user }}'@'{{ item }}' IDENTIFIED BY '{{ new_password }}'; GRANT ALL PRIVILEGES ON {{ new_database }}.* TO '{{ new_user }}'@'{{ item }}'; FLUSH PRIVILEGES;"
-    loop: "{{ app_server_ips }}"
+    - name: Create a new user with access to the new database from each application server IP
+      command: mysql -u root -p"{{ root_password }}" -e "CREATE USER '{{ new_user }}'@'{{ item }}' IDENTIFIED BY '{{ new_password }}'; GRANT ALL PRIVILEGES ON {{ new_database }}.* TO '{{ new_user }}'@'{{ item }}'; FLUSH PRIVILEGES;"
+      loop: "{{ app_server_ips }}"
