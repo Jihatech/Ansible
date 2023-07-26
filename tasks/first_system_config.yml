@@ -19,18 +19,4 @@
       value: '1'
       state: present
       reload: yes
-
-  - name: Change soft nproc limit in /etc/security/limits.d/90-nproc.conf
-    lineinfile:
-      path: /etc/security/limits.d/90-nproc.conf
-      line: 'soft nproc 10240'
-      insertafter: EOF
-      state: present
-
-  - name: Change soft and hard nofile limit in /etc/security/limits.d/90-nproc.conf
-    blockinfile:
-      path: /etc/security/limits.d/90-nproc.conf
-      block: |
-        soft nofile 16000
-        hard nofile 16000
 ...
