@@ -36,8 +36,8 @@
           state: started
           enabled: yes
           
-  - name: Set root password
-    command: mysqladmin -u root password "{{ root_password }}"
+  #- name: Set root password
+  #  command: mysqladmin -u root password "{{ root_password }}"
 
   - name: Configure innodb_buffer_pool_size
     lineinfile:
