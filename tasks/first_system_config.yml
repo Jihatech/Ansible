@@ -4,19 +4,18 @@
   become: yes
 
   tasks:
-  - name: Install necessary packages
-    yum:
-      name: ['libaio', 'glibc', 'perl']
-      state: present
+    - name: Install necessary packages
+      yum:
+        name: ["libaio", "glibc", "perl"]
+        state: present
 
-  - name: Disable SELinux
-    selinux:
-      state: disabled
+    - name: Disable SELinux
+      selinux:
+        state: disabled
 
-  - name: Change vm.swappiness in /etc/sysctl.conf
-    sysctl:
-      name: vm.swappiness
-      value: '1'
-      state: present
-      reload: yes
-...
+    - name: Change vm.swappiness in /etc/sysctl.conf
+      sysctl:
+        name: vm.swappiness
+        value: "1"
+        state: present
+        reload: yes

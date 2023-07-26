@@ -3,51 +3,50 @@
   hosts: SERVERBDD
   become: yes
   vars:
-    root_password: 'mariadb' # to be updated with real password
-    innodb_buffer_pool_size: '8G' # 70% of 12GB
+    root_password: "mariadb" # to be updated with real password
+    innodb_buffer_pool_size: "8G" # 70% of 12GB
 
   tasks:
-  - name: Create the mysql user and group
-    user:
-      name: mysql
-      group: mysql
-      system: yes
+    - name: Create the mysql user and group
+      user:
+        name: mysql
+        group: mysql
+        system: yes
 
-  - name: Create directories for MariaDB installation
-    file:
-      path: "{{ item }}"
-      state: directory
-      owner: mysql
-      group: mysql
-    loop:
-    - /glide/install_temp
-    - /glide/mysql
-    - /glide/mysql/data
-    - /glide/mysql/temp
+    - name: Create directories for MariaDB installation
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: mysql
+        group: mysql
+      loop:
+        - /glide/install_temp
+        - /glide/mysql
+        - /glide/mysql/data
+        - /glide/mysql/temp
 
-  - name: Install MariaDB server from local repository
-    yum:
-      name: mariadb-server
-      state: present
+    - name: Install MariaDB server from local repository
+      yum:
+        name: mariadb-server
+        state: present
 
-  - name: enable mariaDB service
-    service:
-          name: mariadb
-          state: started
-          enabled: yes
-          
-  #- name: Set root password
-  #  command: mysqladmin -u root password "{{ root_password }}"
+    - name: enable mariaDB service
+      service:
+        name: mariadb
+        state: started
+        enabled: yes
 
-  - name: Configure innodb_buffer_pool_size
-    lineinfile:
-      path: /etc/my.cnf
-      line: 'innodb_buffer_pool_size = {{ innodb_buffer_pool_size }}'
-      insertafter: EOF
-      state: present
+    #- name: Set root password
+    #  command: mysqladmin -u root password "{{ root_password }}"
 
-  - name: Restart MariaDB service
-    service:
-      name: mariadb
-      state: restarted
-...
+    - name: Configure innodb_buffer_pool_size
+      lineinfile:
+        path: /etc/my.cnf
+        line: "innodb_buffer_pool_size = {{ innodb_buffer_pool_size }}"
+        insertafter: EOF
+        state: present
+
+    - name: Restart MariaDB service
+      service:
+        name: mariadb
+        state: restarted
