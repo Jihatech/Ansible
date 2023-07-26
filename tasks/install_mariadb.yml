@@ -1,5 +1,5 @@
 ---
-- name: Install MariaDB 10.3 from local repository
+- name: Install MariaDB
   hosts: SERVERBDD
   become: yes
   vars:
@@ -27,15 +27,14 @@
 
   - name: Install MariaDB server from local repository
     yum:
-      name: mariadb
+      name: mariadb-server
       state: present
 
-  - name: Start MariaDB service
+  - name: enable mariaDB service
     service:
-      name: mariadb
-      state: started
-      enabled: yes
-
+          name: mariadb
+          state: started
+          enabled: yes
   - name: Set root password
     command: mysqladmin -u root password "{{ root_password }}"
 
