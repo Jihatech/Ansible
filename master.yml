@@ -1,6 +1,6 @@
 ---
 - import_playbook: tasks/first_system_config.yml
 - import_playbook: tasks/install_python_dependencies.yml
-- import_playbook: tasks/installation_MariaDB.yml
+- import_playbook: tasks/installation_mariadb.yml
 - import_playbook: tasks/config_post_install.yml
 - import_playbook: tasks/configure_firewall.yml
