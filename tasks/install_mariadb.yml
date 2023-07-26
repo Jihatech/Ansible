@@ -35,6 +35,7 @@
           name: mariadb
           state: started
           enabled: yes
+          
   - name: Set root password
     command: mysqladmin -u root password "{{ root_password }}"
 
