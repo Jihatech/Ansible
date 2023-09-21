@@ -1,0 +1,23 @@
+---
+- name: Monter un lecteur NFS
+  hosts: vos_hotes_cibles
+  become: yes
+  tasks:
+    - name: Installer le module NFS client
+      package:
+        name:
+          - nfs-utils
+        state: present
+
+    - name: Créer le répertoire de montage
+      file:
+        path: "/votre/chemin/de/montage"
+        state: directory
+
+    - name: Monter le système de fichiers NFS
+      mount:
+        path: "/votre/chemin/de/montage"
+        src: "adresse_serveur_nfs:/chemin/vers/le/partage"
+        fstype: nfs
+        opts: "defaults"
+        state: mounted

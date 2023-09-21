@@ -1,0 +1,15 @@
+---
+- name: Restauration de la Base de Données
+  hosts: target_server
+  become: true
+  tasks:
+    - name: Supprimer la base de données cible
+      mysql_db:
+        name: "{{ target_db_name }}"
+        state: absent
+    - name: Créer une nouvelle base de données vide sur le serveur cible
+      mysql_db:
+        name: "{{ target_db_name }}"
+        state: present
+    - name: Restaurer la base de données à partir de la sauvegarde
+      shell: gunzip < {{ source_db_name }}.sql.gz | mysql --default-character-set=utf8 {{ target_db_name }}

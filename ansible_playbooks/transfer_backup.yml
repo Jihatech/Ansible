@@ -1,0 +1,10 @@
+---
+- name: Transfert de la Sauvegarde
+  hosts: [target_server, source_server]
+  become: true
+  tasks:
+    - name: Transférer le fichier de sauvegarde vers le serveur cible
+      synchronize:
+        src: /glide/{{ source_instance_port }}.sql.gz
+        dest: /glide/
+      delegate_to: source_server

@@ -1,0 +1,8 @@
+---
+- name: Vérification de la Version de ServiceNow
+  hosts: [target_server, source_server]
+  become: true
+  tasks:
+    - name: Assurez-vous que les deux instances ont la même version de ServiceNow
+      # Ajoutez votre logique ici pour vérifier la version
+      # Exemple de tâche shell ou module personnalisé

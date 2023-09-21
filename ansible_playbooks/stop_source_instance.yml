@@ -1,0 +1,7 @@
+---
+- name: Arrêt de l'Instance Source
+  hosts: source_server
+  become: true
+  tasks:
+    - name: Arrêter l'instance ServiceNow source
+      command: /glide/nodes/{{ source_instance_port }}/shutdown.sh

@@ -1,0 +1,8 @@
+---
+- import_playbook: verify_version.yml
+- import_playbook: stop_source_instance.yml
+- import_playbook: transfer_backup.yml
+- import_playbook: stop_target_instance.yml
+- import_playbook: restore_database.yml
+- import_playbook: start_target_instance.yml
+- import_playbook: verify_instance_status.yml

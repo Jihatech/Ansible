@@ -1,0 +1,8 @@
+---
+- name: Vérification de l'État de l'Instance
+  hosts: target_server
+  become: true
+  tasks:
+    - name: Vérification de l'état de l'instance
+      # Ajoutez votre logique ici
+      # Exemple de tâche shell ou module personnalisé

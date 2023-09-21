@@ -1,0 +1,45 @@
+---
+- hosts: all
+  become: yes
+  vars:
+    port: 3306
+    user: sbtest
+    password: sbtest
+    base_backup_dir: /glide/backup
+    mariadb_data_dir: /var/lib/mysql
+    mariadb_path: /glide/mariadb/10.2.27/bin
+
+  tasks:
+    - name: Arrêter le service MariaDB
+      service:
+        name: mariadb
+        state: stopped
+
+    - name: Préparer la BASE/L0 Backup pour la restauration
+      shell: >
+        {{ mariadb_path }}/mariabackup -hlocalhost -P{{ port }} -u{{ user }} -p{{ password }}
+        --prepare --target-dir={{ base_backup_dir }}/full_backup_last
+
+    - name: Préparer la sauvegarde incrémentielle pour la restauration
+      shell: >
+        {{ mariadb_path }}/mariabackup -hlocalhost -P{{ port }} -u{{ user }} -p{{ password }}
+        --prepare --target={{ base_backup_dir }}/full_backup_last
+        --incremental-dir={{ base_backup_dir }}/incremental_backup_last
+      when: incremental_backup_exists|bool
+
+    - name: Copier les fichiers restaurés vers le répertoire de données MariaDB
+      shell: >
+        {{ mariadb_path }}/mariabackup --copy-back
+        --target-dir={{ base_backup_dir }}/full_backup_last
+
+    - name: Changer le propriétaire des fichiers du répertoire de données MariaDB
+      file:
+        path: "{{ mariadb_data_dir }}"
+        owner: mysql
+        group: mysql
+        recurse: yes
+
+    - name: Démarrer le service MariaDB
+      service:
+        name: mariadb
+        state: started

@@ -1,0 +1,7 @@
+---
+- name: Redémarrage de l'Instance Cible
+  hosts: target_server
+  become: true
+  tasks:
+    - name: Démarrer l'instance ServiceNow cible
+      command: /glide/nodes/{{ target_instance_port }}/startup.sh
